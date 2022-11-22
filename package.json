@@ -1,0 +1,30 @@
+{
+  "name": "shoppin-backend",
+  "version": "1.0.0",
+  "description": "Backend do projeto final do módulo 3 do bootcamp Driven, com Nodejs e Express.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larissadalimar/ecommerce-back.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "ecommerce"
+  ],
+  "author": "Igor Novais e Larissa Dalimar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/larissadalimar/ecommerce-back/issues"
+  },
+  "homepage": "https://github.com/larissadalimar/ecommerce-back#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}
