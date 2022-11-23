@@ -1,4 +1,4 @@
-import { usersCollection } from "../database/db";
+import { usersCollection } from "../database/db.js";
 
 export async function signInValidation (req, res, next){
 
