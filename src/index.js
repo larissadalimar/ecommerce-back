@@ -1,14 +1,15 @@
-import express from 'express'
-import dotenv from 'dotenv'
+import express from 'express';
+import cors from 'cors';
 
-dotenv.config()
+import usersRoutes from './routes/user.routes.js'
+
 
 const app = express()
 
-app.get("/", (req, res) => {
-   return res.send("Projeto criado!")
-})
+app.use(cors());
+app.use(express.json());
+app.use(usersRoutes);
 
-const port = process.env.PORT 
+const port = process.env.PORT
 
 app.listen(port, console.log(`Running in port ${port}`))

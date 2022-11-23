@@ -1,6 +1,9 @@
-import MongoClient from 'mongodb'
+import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
 
-const mongoClient = new MongoClient(process.env.MONGO_URI)
+dotenv.config();
+
+const mongoClient = new MongoClient(process.env.MONGO_URI);
 
 try {
     await mongoClient.connect()
@@ -9,4 +12,8 @@ try {
     console.log(error)
 }
 
-const db = mongoClient.db("wine-drop")
+const db = mongoClient.db("wine-drop");
+
+export const usersCollection = db.collection("users");
+
+export const sessionsCollection = db.collection("sessions");
