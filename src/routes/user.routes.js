@@ -10,6 +10,6 @@ const router = Router();
 
 router.post("/sign-up", signUpValidation, postParticipantSignUp);
 
-router.post("sign-in", signInValidation, postParticipantSignIn);
+router.post("/sign-in", signInValidation, postParticipantSignIn);
 
 export default router;

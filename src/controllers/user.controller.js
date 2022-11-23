@@ -25,9 +25,13 @@ export async function postParticipantSignUp (req,res){
 }
 
 export async function postParticipantSignIn (req, res){
+
+    const { email } = req.body;
+
     const token = uuid();
 
     try{
+        
         const userExist = await usersCollection.findOne({email})
 
         const userSession = await sessionsCollection.findOne({userId: userExist._id});
