@@ -1,8 +1,7 @@
 import bcrypt from 'bcrypt';
+import {v4 as uuid} from "uuid";
 
-import { usersCollection } from "../database/db.js";
-
-import { userSignUpSchema } from "../models/userSignUp.models.js";
+import { usersCollection, sessionsCollection } from "../database/db.js";
 
 
 
@@ -22,5 +21,30 @@ export async function postParticipantSignUp (req,res){
     } catch (err){
         console.log(err);
         res.status(500).send('Server not running');
+    }
+}
+
+export async function postParticipantSignIn (req, res){
+    const token = uuid();
+
+    try{
+        const userExist = await usersCollection.findOne({email})
+
+        const userSession = await sessionsCollection.findOne({userId: userExist._id});
+
+        if(userSession){
+            return res.send(userSession.token);
+        } 
+
+        await sessionsCollection.insertOne({
+            userId: userExist._id,
+            token
+        });
+
+        res.send(token);
+
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
     }
 }
