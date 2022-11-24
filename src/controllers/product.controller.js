@@ -7,6 +7,7 @@ export async function getWines(req, res){
         const token = req.token;
 
         const wines = await productsCollection.find().toArray();
+        console.log(wines)
 
         const sessions = await sessionsCollection.findOne({token});
 
