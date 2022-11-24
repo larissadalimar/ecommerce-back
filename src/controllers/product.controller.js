@@ -26,12 +26,12 @@ export async function getWines(req, res){
 export async function getWineProduct(req,res){
 
     try {
-        console.log(req.headers);
+        
         const {id} = req.headers;
 
         const wine = await productsCollection.findOne({_id: ObjectId(id)});
 
-        res.send(wine);
+        res.send({wine});
 
     } catch (err) {
 
