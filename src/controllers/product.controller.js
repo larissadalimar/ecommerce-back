@@ -26,7 +26,7 @@ export async function getWineProduct(req,res){
 
     try {
 
-        const {id} = req.body;
+        const {id} = req.headers;
 
         console.log(id);
 
