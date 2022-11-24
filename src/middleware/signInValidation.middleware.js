@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { usersCollection } from "../database/db.js";
 
 export async function signInValidation (req, res, next){
@@ -18,6 +19,6 @@ export async function signInValidation (req, res, next){
     }
     
     req.user = userExist
-    
+
     next();
 }
