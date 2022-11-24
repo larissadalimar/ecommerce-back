@@ -26,11 +26,11 @@ export async function getWineProduct(req,res){
 
     try {
 
-        const {wineId} = req.body;
+        const {id} = req.body;
 
-        console.log(wineId);
+        console.log(id);
 
-        const wine = await productsCollection.findOne({_id: wineId});
+        const wine = await productsCollection.findOne({_id: id});
 
         res.send(wine);
 
