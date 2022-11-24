@@ -3,12 +3,11 @@ import { productsCollection, usersCollection, sessionsCollection} from "../datab
 export async function getWines(req, res){
 
     try{
-        
+
         const token = req.token;
 
         const wines = await productsCollection.find().toArray();
-        console.log(wines)
-
+        
         const sessions = await sessionsCollection.findOne({token});
 
         let user = await usersCollection.findOne({_id: sessions.userId});
@@ -16,7 +15,24 @@ export async function getWines(req, res){
 
         res.send({wines, user});
 
-    } catch (err){
+    } catch (err) {
+
+        console.log(err);
+        res.status(500).send('Server not running');
+    }
+}
+
+export async function getWineProduct(req,res){
+
+    try {
+
+        const {wineId} = req.body;
+
+        const wine = await productsCollection.findOne({_id: ObjectId(wineId)});
+
+        res.send(wine);
+
+    } catch (err) {
 
         console.log(err);
         res.status(500).send('Server not running');
