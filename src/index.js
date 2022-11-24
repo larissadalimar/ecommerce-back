@@ -15,4 +15,4 @@ app.use(productsRoutes);
 
 const port = process.env.PORT
 
-app.listen(port, console.log(`Running in port ${port}`))
+app.listen(5000, console.log(`Running in port ${port}`))

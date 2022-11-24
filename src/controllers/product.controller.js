@@ -1,4 +1,5 @@
 import { productsCollection, usersCollection, sessionsCollection} from "../database/db.js";
+import { ObjectId } from "mongodb";
 
 export async function getWines(req, res){
 
@@ -25,12 +26,10 @@ export async function getWines(req, res){
 export async function getWineProduct(req,res){
 
     try {
-
+        console.log(req.headers);
         const {id} = req.headers;
 
-        console.log(id);
-
-        const wine = await productsCollection.findOne({_id: id});
+        const wine = await productsCollection.findOne({_id: ObjectId(id)});
 
         res.send(wine);
 
