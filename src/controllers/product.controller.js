@@ -28,7 +28,7 @@ export async function getWineProduct(req,res){
 
         const {wineId} = req.body;
 
-        const wine = await productsCollection.findOne({_id: wineId});
+        const wine = await productsCollection.findOne({_id: ObjectId(wineId)});
 
         res.send(wine);
 
