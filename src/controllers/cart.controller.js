@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb"
-import { cartsCollection, productsCollection } from "../database/db.js"
+import { cartsCollection, productsCollection, purchasesCollection } from "../database/db.js"
 
 export async function getCart(req, res){
 
@@ -31,13 +31,15 @@ export async function addProductInCart(req, res){
         if(!product) return res.status(422).send("Esse produto não existe")
 
         if(!cart){
-            await cartsCollection.insertOne({userId: user._id, products:[product]})
+            await cartsCollection.insertOne({userId: user._id, products:[product], value: Number(product.value)})
         }else {
-            await cartsCollection.updateOne({userId: user._id}, { $push : {products: product}})
+            await cartsCollection.updateOne({userId: user._id}, { $push : {products: product}, $inc: {value: Number(product.value)}})
         }
 
         cart = await cartsCollection.findOne({userId: user._id})
 
+        console.log("cart:", cart, "product:", product)
+        
         res.send(cart)
 
     } catch (error) {
@@ -60,7 +62,7 @@ export async function deleteProductInCart(req, res){
         console.log("cart:", cart, "product:", product)
 
         if(!cart) return res.sendStatus(422)
-        else await cartsCollection.updateOne({userId: user._id}, { $pull : {products: product}})
+        else await cartsCollection.updateOne({userId: user._id}, { $pull : {products: product}, $inc : {value: -Number(product.value)}})
 
         return res.send("Produto deletado do carrinho!")
 
@@ -71,15 +73,19 @@ export async function deleteProductInCart(req, res){
 }
 
 
-export async function cleanCart(req, res){
+export async function completePurchase(req, res){
 
     const user = req.user
 
+    const { payment, cart } = req.body
+
     try {
+
+        await purchasesCollection.insertOne({userId: user._id, payment: payment, products: cart.products, value: cart.value})
 
         await cartsCollection.deleteOne({userId: user._id})
 
-        res.send("Carrinho esvaziado!")
+        res.send("Pedido finalizado!")
 
     } catch (error) {
      
