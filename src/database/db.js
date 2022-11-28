@@ -22,4 +22,4 @@ export const productsCollection = db.collection("products");
 
 export const cartsCollection = db.collection("carts");
 
-export const purchasesCollection = db.collection("purchases")
+export const purchasesCollection = db.collection("purchases");
