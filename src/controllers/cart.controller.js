@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb"
-import { cartsCollection, productsCollection } from "../database/db.js"
+import { cartsCollection, productsCollection, purchasesCollection } from "../database/db.js"
 
 export async function getCart(req, res){
 
@@ -73,15 +73,19 @@ export async function deleteProductInCart(req, res){
 }
 
 
-export async function cleanCart(req, res){
+export async function completePurchase(req, res){
 
     const user = req.user
 
+    const { payment, cart } = req.body
+
     try {
+
+        await purchasesCollection.insertOne({userId: user._id, payment: payment, products: cart.products, value: cart.value})
 
         await cartsCollection.deleteOne({userId: user._id})
 
-        res.send("Carrinho esvaziado!")
+        res.send("Pedido finalizado!")
 
     } catch (error) {
      

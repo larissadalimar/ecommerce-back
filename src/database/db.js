@@ -21,3 +21,5 @@ export const sessionsCollection = db.collection("sessions");
 export const productsCollection = db.collection("products");
 
 export const cartsCollection = db.collection("carts");
+
+export const purchasesCollection = db.collection("purchases")
