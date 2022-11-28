@@ -37,7 +37,7 @@ export async function postParticipantSignIn (req, res){
         const userSession = await sessionsCollection.findOne({userId: userExist._id});
 
         if(userSession){
-            return res.send(userSession.token);
+            return res.send({name: userExist.name, token: userSession.token});
         } 
 
         await sessionsCollection.insertOne({
@@ -45,7 +45,7 @@ export async function postParticipantSignIn (req, res){
             token
         });
 
-        res.send(token);
+        res.send({name: userExist.name, token});
 
     } catch (err) {
         console.log(err);
